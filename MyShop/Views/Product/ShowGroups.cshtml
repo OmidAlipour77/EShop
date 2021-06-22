@@ -1,0 +1,29 @@
+﻿@model IEnumerable<DataLayer.ProductGroups>
+
+<div class="panel panel-warning">
+    <!-- Default panel contents -->
+    <div class="panel-heading">گروه محصولات</div>
+    <div class="panel-body">
+        <div id="productList">
+            <ul>
+                @foreach (var group in Model.Where(g => g.ParentID == null))
+                {
+                    <li>
+                        <h4><i class="fa fa-book"></i> <a href="/Archive?selectGroup=@group.GroupID">@group.GroupTitle</a></h4>
+                        @if (Model.Any(g => g.ParentID == group.GroupID))
+                        {
+                        <ul>
+                            @foreach (var subgroup in Model.Where(g => g.ParentID == group.GroupID))
+                            {
+                                <li><h5><i class="glyphicon glyphicon-triangle-left"></i><a href="/Archive?selectGroup=@subgroup.GroupID">@subgroup.GroupTitle</a> <span class="badge">@subgroup.ProductSelectGroup.Count</span></h5></li>
+
+                            }
+                        </ul>
+                        }
+                    </li>
+
+                }
+            </ul>
+        </div>
+    </div>
+</div>

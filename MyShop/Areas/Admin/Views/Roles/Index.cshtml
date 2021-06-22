@@ -1,0 +1,39 @@
+﻿@model IEnumerable<DataLayer.Roles>
+
+@{
+    ViewBag.Title = "نقش";
+}
+
+<h2>نقش کاربران</h2>
+
+<p>
+    <a href="@Url.Action("Create")" class="btn btn-success">افزودن نقش جدید</a>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.RoleTitle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RoleName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.RoleTitle)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RoleName)
+        </td>
+        <td>
+            <a href="@Url.Action("Edit", new {id=item.RoleID })" class="btn btn-warning"><i class="glyphicon glyphicon-edit"></i></a>
+            <a href="@Url.Action("Delete", new {id=item.RoleID })" class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i></a>
+      
+        </td>
+    </tr>
+}
+
+</table>

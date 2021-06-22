@@ -1,0 +1,67 @@
+﻿@model IEnumerable<DataLayer.ProductGroups>
+
+@{
+    ViewBag.Title = "گروه محصولات";
+}
+
+<h2>گروه محصولات</h2>
+
+<p>
+    <a onclick="Create()" class="btn btn-primary">افزودن گروه</a>
+</p>
+<table class="table table-striped">
+    <tr>
+        <th>
+            عنوان گروه
+        </th>
+        <th>
+            زیرگروه ها
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.Where(g => g.ParentID == null))
+    {
+        <tr id="group_@(item.GroupID)">
+            <td>
+                @Html.DisplayFor(modelItem => item.GroupTitle)
+            </td>
+            <td>
+                @if (item.ProductGroups1.Any())
+                {
+                    <ol>
+                        @foreach (var group in item.ProductGroups1)
+                        {
+                            <li id="group_@(group.GroupID)">
+                                @group.GroupTitle
+                                <a onclick="Edit(@group.GroupID)" class="text-warning pull-left" style="padding:0 5px"><i class="glyphicon glyphicon-edit"></i></a>
+                                <a onclick="Delete(@group.GroupID)" class="text-danger pull-left" style="padding:0 5px"><i class="glyphicon glyphicon-trash"></i></a>
+                            </li>
+                        }
+                    </ol>
+                }
+
+            </td>
+            <td>
+                <a onclick="Delete(@item.GroupID)" class="text-danger pull-left" style="padding:0 5px"><i class="glyphicon glyphicon-trash"></i></a>
+                <a onclick="Edit(@item.GroupID)" class="text-warning pull-left" style="padding:0 5px"><i class="glyphicon glyphicon-edit"></i></a>
+                <a onclick="Create(@item.GroupID)" class="text-primary pull-left" style="padding:0 5px"><i class="glyphicon glyphicon-plus"></i></a>
+            </td>
+        </tr>
+    }
+
+</table>
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+            </div>
+            <div class="modal-body" id="modalBody">
+                ...
+            </div>
+        </div>
+    </div>
+</div>

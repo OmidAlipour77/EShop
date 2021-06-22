@@ -1,0 +1,347 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MyShop_DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Roles">
+    <Key>
+      <PropertyRef Name="RoleID" />
+    </Key>
+    <Property Name="RoleID" Type="Int32" Nullable="false" />
+    <Property Name="RoleTitle" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="RoleName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Users" Relationship="Self.FK_Users_Roles" FromRole="Roles" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleID" Type="Int32" Nullable="false" />
+    <Property Name="UserName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ActiveCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="RegisterDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Roles" Relationship="Self.FK_Users_Roles" FromRole="Users" ToRole="Roles" />
+    <NavigationProperty Name="Order" Relationship="MyShop_DBModel.FK_Order_Users" FromRole="Users" ToRole="Order" />
+  </EntityType>
+  <Association Name="FK_Users_Roles">
+    <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+    <End Role="Users" Type="Self.Users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Roles">
+        <PropertyRef Name="RoleID" />
+      </Principal>
+      <Dependent Role="Users">
+        <PropertyRef Name="RoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MyShop_DBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Roles" EntityType="Self.Roles" />
+    <EntitySet Name="Users" EntityType="Self.Users" />
+    <AssociationSet Name="FK_Users_Roles" Association="Self.FK_Users_Roles">
+      <End Role="Roles" EntitySet="Roles" />
+      <End Role="Users" EntitySet="Users" />
+    </AssociationSet>
+    <EntitySet Name="ProductGroups" EntityType="MyShop_DBModel.ProductGroups" />
+    <AssociationSet Name="FK_ProductGroups_ProductGroups" Association="MyShop_DBModel.FK_ProductGroups_ProductGroups">
+      <End Role="ProductGroups" EntitySet="ProductGroups" />
+      <End Role="ProductGroups1" EntitySet="ProductGroups" />
+    </AssociationSet>
+    <EntitySet Name="Products" EntityType="MyShop_DBModel.Products" />
+    <EntitySet Name="ProductSelectGroup" EntityType="MyShop_DBModel.ProductSelectGroup" />
+    <EntitySet Name="ProductTags" EntityType="MyShop_DBModel.ProductTags" />
+    <AssociationSet Name="FK_ProductSelectGroup_ProductGroups" Association="MyShop_DBModel.FK_ProductSelectGroup_ProductGroups">
+      <End Role="ProductGroups" EntitySet="ProductGroups" />
+      <End Role="ProductSelectGroup" EntitySet="ProductSelectGroup" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductSelectGroup_Products" Association="MyShop_DBModel.FK_ProductSelectGroup_Products">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="ProductSelectGroup" EntitySet="ProductSelectGroup" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductTags_Products" Association="MyShop_DBModel.FK_ProductTags_Products">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="ProductTags" EntitySet="ProductTags" />
+    </AssociationSet>
+    <EntitySet Name="Product_Galleries" EntityType="MyShop_DBModel.Product_Galleries" />
+    <AssociationSet Name="FK_Product_Galleries_Products" Association="MyShop_DBModel.FK_Product_Galleries_Products">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="Product_Galleries" EntitySet="Product_Galleries" />
+    </AssociationSet>
+    <EntitySet Name="Feature" EntityType="MyShop_DBModel.Feature" />
+    <EntitySet Name="ProductFeature" EntityType="MyShop_DBModel.ProductFeature" />
+    <AssociationSet Name="FK_ProductFeature_Feature" Association="MyShop_DBModel.FK_ProductFeature_Feature">
+      <End Role="Feature" EntitySet="Feature" />
+      <End Role="ProductFeature" EntitySet="ProductFeature" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductFeature_Products" Association="MyShop_DBModel.FK_ProductFeature_Products">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="ProductFeature" EntitySet="ProductFeature" />
+    </AssociationSet>
+    <EntitySet Name="ProductComment" EntityType="MyShop_DBModel.ProductComment" />
+    <AssociationSet Name="FK_ProductComment_Products" Association="MyShop_DBModel.FK_ProductComment_Products">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="ProductComment" EntitySet="ProductComment" />
+    </AssociationSet>
+    <EntitySet Name="Order" EntityType="MyShop_DBModel.Order" />
+    <EntitySet Name="OrderDetails" EntityType="MyShop_DBModel.OrderDetails" />
+    <AssociationSet Name="FK_Order_Users" Association="MyShop_DBModel.FK_Order_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Order" EntitySet="Order" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderDetails_Order" Association="MyShop_DBModel.FK_OrderDetails_Order">
+      <End Role="Order" EntitySet="Order" />
+      <End Role="OrderDetails" EntitySet="OrderDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderDetails_Products" Association="MyShop_DBModel.FK_OrderDetails_Products">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="OrderDetails" EntitySet="OrderDetails" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="ProductGroups">
+    <Key>
+      <PropertyRef Name="GroupID" />
+    </Key>
+    <Property Name="GroupID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="GroupTitle" Type="String" Nullable="false" MaxLength="400" FixedLength="false" Unicode="true" />
+    <Property Name="ParentID" Type="Int32" />
+    <NavigationProperty Name="ProductGroups1" Relationship="MyShop_DBModel.FK_ProductGroups_ProductGroups" FromRole="ProductGroups" ToRole="ProductGroups1" />
+    <NavigationProperty Name="ProductGroups2" Relationship="MyShop_DBModel.FK_ProductGroups_ProductGroups" FromRole="ProductGroups1" ToRole="ProductGroups" />
+    <NavigationProperty Name="ProductSelectGroup" Relationship="MyShop_DBModel.FK_ProductSelectGroup_ProductGroups" FromRole="ProductGroups" ToRole="ProductSelectGroup" />
+  </EntityType>
+  <Association Name="FK_ProductGroups_ProductGroups">
+    <End Type="MyShop_DBModel.ProductGroups" Role="ProductGroups" Multiplicity="0..1" />
+    <End Type="MyShop_DBModel.ProductGroups" Role="ProductGroups1" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProductGroups">
+        <PropertyRef Name="GroupID" />
+      </Principal>
+      <Dependent Role="ProductGroups1">
+        <PropertyRef Name="ParentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Products">
+    <Key>
+      <PropertyRef Name="ProductID" />
+    </Key>
+    <Property Name="ProductID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="String" Nullable="false" MaxLength="350" FixedLength="false" Unicode="true" />
+    <Property Name="ShortDescription" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Text" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Price" Type="Int32" Nullable="false" />
+    <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ImageName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="ProductSelectGroup" Relationship="MyShop_DBModel.FK_ProductSelectGroup_Products" FromRole="Products" ToRole="ProductSelectGroup" />
+    <NavigationProperty Name="ProductTags" Relationship="MyShop_DBModel.FK_ProductTags_Products" FromRole="Products" ToRole="ProductTags" />
+    <NavigationProperty Name="Product_Galleries" Relationship="MyShop_DBModel.FK_Product_Galleries_Products" FromRole="Products" ToRole="Product_Galleries" />
+    <NavigationProperty Name="ProductFeature" Relationship="MyShop_DBModel.FK_ProductFeature_Products" FromRole="Products" ToRole="ProductFeature" />
+    <NavigationProperty Name="ProductComment" Relationship="MyShop_DBModel.FK_ProductComment_Products" FromRole="Products" ToRole="ProductComment" />
+    <NavigationProperty Name="OrderDetails" Relationship="MyShop_DBModel.FK_OrderDetails_Products" FromRole="Products" ToRole="OrderDetails" />
+  </EntityType>
+  <EntityType Name="ProductSelectGroup">
+    <Key>
+      <PropertyRef Name="PG_ID" />
+    </Key>
+    <Property Name="PG_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductID" Type="Int32" Nullable="false" />
+    <Property Name="GroupID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="ProductGroups" Relationship="MyShop_DBModel.FK_ProductSelectGroup_ProductGroups" FromRole="ProductSelectGroup" ToRole="ProductGroups" />
+    <NavigationProperty Name="Products" Relationship="MyShop_DBModel.FK_ProductSelectGroup_Products" FromRole="ProductSelectGroup" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="ProductTags">
+    <Key>
+      <PropertyRef Name="TagID" />
+    </Key>
+    <Property Name="TagID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductID" Type="Int32" Nullable="false" />
+    <Property Name="Tag" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Products" Relationship="MyShop_DBModel.FK_ProductTags_Products" FromRole="ProductTags" ToRole="Products" />
+  </EntityType>
+  <Association Name="FK_ProductSelectGroup_ProductGroups">
+    <End Type="MyShop_DBModel.ProductGroups" Role="ProductGroups" Multiplicity="1" />
+    <End Type="MyShop_DBModel.ProductSelectGroup" Role="ProductSelectGroup" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProductGroups">
+        <PropertyRef Name="GroupID" />
+      </Principal>
+      <Dependent Role="ProductSelectGroup">
+        <PropertyRef Name="GroupID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductSelectGroup_Products">
+    <End Type="MyShop_DBModel.Products" Role="Products" Multiplicity="1" />
+    <End Type="MyShop_DBModel.ProductSelectGroup" Role="ProductSelectGroup" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="ProductID" />
+      </Principal>
+      <Dependent Role="ProductSelectGroup">
+        <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductTags_Products">
+    <End Type="MyShop_DBModel.Products" Role="Products" Multiplicity="1" />
+    <End Type="MyShop_DBModel.ProductTags" Role="ProductTags" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="ProductID" />
+      </Principal>
+      <Dependent Role="ProductTags">
+        <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Product_Galleries">
+    <Key>
+      <PropertyRef Name="GalleryID" />
+    </Key>
+    <Property Name="GalleryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductID" Type="Int32" Nullable="false" />
+    <Property Name="Title" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="ImageName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Products" Relationship="MyShop_DBModel.FK_Product_Galleries_Products" FromRole="Product_Galleries" ToRole="Products" />
+  </EntityType>
+  <Association Name="FK_Product_Galleries_Products">
+    <End Type="MyShop_DBModel.Products" Role="Products" Multiplicity="1" />
+    <End Type="MyShop_DBModel.Product_Galleries" Role="Product_Galleries" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="ProductID" />
+      </Principal>
+      <Dependent Role="Product_Galleries">
+        <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Feature">
+    <Key>
+      <PropertyRef Name="FeatureID" />
+    </Key>
+    <Property Name="FeatureID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FeatureTitle" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="ProductFeature" Relationship="MyShop_DBModel.FK_ProductFeature_Feature" FromRole="Feature" ToRole="ProductFeature" />
+  </EntityType>
+  <EntityType Name="ProductFeature">
+    <Key>
+      <PropertyRef Name="PF_ID" />
+    </Key>
+    <Property Name="PF_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductID" Type="Int32" Nullable="false" />
+    <Property Name="FeatureID" Type="Int32" Nullable="false" />
+    <Property Name="Value" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Feature" Relationship="MyShop_DBModel.FK_ProductFeature_Feature" FromRole="ProductFeature" ToRole="Feature" />
+    <NavigationProperty Name="Products" Relationship="MyShop_DBModel.FK_ProductFeature_Products" FromRole="ProductFeature" ToRole="Products" />
+  </EntityType>
+  <Association Name="FK_ProductFeature_Feature">
+    <End Type="MyShop_DBModel.Feature" Role="Feature" Multiplicity="1" />
+    <End Type="MyShop_DBModel.ProductFeature" Role="ProductFeature" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Feature">
+        <PropertyRef Name="FeatureID" />
+      </Principal>
+      <Dependent Role="ProductFeature">
+        <PropertyRef Name="FeatureID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductFeature_Products">
+    <End Type="MyShop_DBModel.Products" Role="Products" Multiplicity="1" />
+    <End Type="MyShop_DBModel.ProductFeature" Role="ProductFeature" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="ProductID" />
+      </Principal>
+      <Dependent Role="ProductFeature">
+        <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="ProductComment">
+    <Key>
+      <PropertyRef Name="CommentID" />
+    </Key>
+    <Property Name="CommentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductID" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="350" FixedLength="false" Unicode="true" />
+    <Property Name="Website" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+    <Property Name="Comment" Type="String" Nullable="false" MaxLength="800" FixedLength="false" Unicode="true" />
+    <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ParentID" Type="Int32" />
+    <NavigationProperty Name="Products" Relationship="MyShop_DBModel.FK_ProductComment_Products" FromRole="ProductComment" ToRole="Products" />
+  </EntityType>
+  <Association Name="FK_ProductComment_Products">
+    <End Type="MyShop_DBModel.Products" Role="Products" Multiplicity="1" />
+    <End Type="MyShop_DBModel.ProductComment" Role="ProductComment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="ProductID" />
+      </Principal>
+      <Dependent Role="ProductComment">
+        <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="OrderID" />
+    </Key>
+    <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserID" Type="Int32" Nullable="false" />
+    <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IsFinaly" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Users" Relationship="MyShop_DBModel.FK_Order_Users" FromRole="Order" ToRole="Users" />
+    <NavigationProperty Name="OrderDetails" Relationship="MyShop_DBModel.FK_OrderDetails_Order" FromRole="Order" ToRole="OrderDetails" />
+  </EntityType>
+  <EntityType Name="OrderDetails">
+    <Key>
+      <PropertyRef Name="DetailsID" />
+    </Key>
+    <Property Name="DetailsID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OrderID" Type="Int32" Nullable="false" />
+    <Property Name="ProductID" Type="Int32" Nullable="false" />
+    <Property Name="Price" Type="Int32" Nullable="false" />
+    <Property Name="Count" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Order" Relationship="MyShop_DBModel.FK_OrderDetails_Order" FromRole="OrderDetails" ToRole="Order" />
+    <NavigationProperty Name="Products" Relationship="MyShop_DBModel.FK_OrderDetails_Products" FromRole="OrderDetails" ToRole="Products" />
+  </EntityType>
+  <Association Name="FK_Order_Users">
+    <End Type="MyShop_DBModel.Users" Role="Users" Multiplicity="1" />
+    <End Type="MyShop_DBModel.Order" Role="Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderDetails_Order">
+    <End Type="MyShop_DBModel.Order" Role="Order" Multiplicity="1" />
+    <End Type="MyShop_DBModel.OrderDetails" Role="OrderDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="OrderID" />
+      </Principal>
+      <Dependent Role="OrderDetails">
+        <PropertyRef Name="OrderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderDetails_Products">
+    <End Type="MyShop_DBModel.Products" Role="Products" Multiplicity="1" />
+    <End Type="MyShop_DBModel.OrderDetails" Role="OrderDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="ProductID" />
+      </Principal>
+      <Dependent Role="OrderDetails">
+        <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

@@ -1,0 +1,63 @@
+﻿@model DataLayer.Product_Galleries
+
+@{
+    ViewBag.Title = "گالری تصاویر";
+}
+
+<h2>گالری تصاویر</h2>
+
+@using (Html.BeginForm("Gallery", "Products", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.ProductID)
+    <div class="col-md-4">
+        <div class="form-group">
+            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ImageName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <label for="imgUp" class="btn btn-block btn-warning" style="margin:10px 0">انتخاب تصویر</label>
+                <input type="file" id="imgUp" name="imgUp" style="display:none" />
+                @Html.ValidationMessageFor(model => model.ImageName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="ثبت" class="btn btn-info" />
+                <a href="/Admin/Products" class="btn btn-info">بازگشت</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8">
+        @{
+            List<DataLayer.Product_Galleries> list = ViewBag.Gallery;
+            <table class="table table-bordered">
+                <tr>
+                    <th>عکس</th>
+                    <th>عنوان</th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in list)
+                {
+                    <tr>
+                        <td>
+                            <img src="~/Images/Product/Gallery/thumb/@item.ImageName" class="thumbnail" />
+                        </td>
+                        <td>@item.Title</td>
+                        <td>
+                            <a href="@Url.Action("DeleteGallery",new {id=item.GalleryID })" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-trash"></i></a>
+                        </td>
+                    </tr>
+                }
+
+
+            </table>
+        }
+    </div>
+}

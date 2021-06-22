@@ -1,0 +1,22 @@
+﻿@model IEnumerable<DataLayer.ShopCartItemViewModel>
+    @if (Model.Any())
+    {
+        <div class="panel panel-warning">
+            <div class="panel-heading">سبد خرید شما </div>
+            <div class="panel-body">
+                <div class="basket">
+                    <ul>
+                        @foreach (var item in Model)
+                        {
+                            <li id="cart">
+                                <img src="~/Images/Product/thumb/@item.ImageName" class="img-thumbnail">
+                                <a href="/Products/@item.ProductID">@item.Title <span class="badge"> @item.Count </span></a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+                <a href="/ShopCart" class="btn btn-info btn-block">مشاهده سبد خرید</a>
+            </div>
+        </div>
+    }
+

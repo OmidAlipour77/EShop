@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7861acda437a4a8e9ee6d06697a1adb4" Name="Diagram1">
+        <EntityTypeShape EntityType="MyShop_DBModel.Roles" Width="1.5" PointX="0.5" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyShop_DBModel.Users" Width="1.5" PointX="2.75" PointY="0.5" IsExpanded="true" />
+        <AssociationConnector Association="MyShop_DBModel.FK_Users_Roles" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="MyShop_DBModel.ProductGroups" Width="1.5" PointX="9.125" PointY="0.5" />
+        <AssociationConnector Association="MyShop_DBModel.FK_ProductGroups_ProductGroups" />
+        <EntityTypeShape EntityType="MyShop_DBModel.Products" Width="1.5" PointX="4.75" PointY="0.5" />
+        <EntityTypeShape EntityType="MyShop_DBModel.ProductSelectGroup" Width="1.5" PointX="6.75" PointY="0.5" />
+        <EntityTypeShape EntityType="MyShop_DBModel.ProductTags" Width="1.5" PointX="3.25" PointY="4.5" />
+        <AssociationConnector Association="MyShop_DBModel.FK_ProductSelectGroup_ProductGroups" />
+        <AssociationConnector Association="MyShop_DBModel.FK_ProductSelectGroup_Products" />
+        <AssociationConnector Association="MyShop_DBModel.FK_ProductTags_Products" />
+        <EntityTypeShape EntityType="MyShop_DBModel.Product_Galleries" Width="1.5" PointX="0.5" PointY="3.5" />
+        <AssociationConnector Association="MyShop_DBModel.FK_Product_Galleries_Products" />
+        <EntityTypeShape EntityType="MyShop_DBModel.Feature" Width="1.5" PointX="9" PointY="3.75" />
+        <EntityTypeShape EntityType="MyShop_DBModel.ProductFeature" Width="1.5" PointX="6.875" PointY="3.625" />
+        <AssociationConnector Association="MyShop_DBModel.FK_ProductFeature_Feature" />
+        <AssociationConnector Association="MyShop_DBModel.FK_ProductFeature_Products" />
+        <EntityTypeShape EntityType="MyShop_DBModel.ProductComment" Width="1.5" PointX="6" PointY="6.5" />
+        <AssociationConnector Association="MyShop_DBModel.FK_ProductComment_Products" />
+        <EntityTypeShape EntityType="MyShop_DBModel.Order" Width="1.5" PointX="3.125" PointY="8" />
+        <EntityTypeShape EntityType="MyShop_DBModel.OrderDetails" Width="1.5" PointX="0.5" PointY="5.875" />
+        <AssociationConnector Association="MyShop_DBModel.FK_Order_Users" />
+        <AssociationConnector Association="MyShop_DBModel.FK_OrderDetails_Order" />
+        <AssociationConnector Association="MyShop_DBModel.FK_OrderDetails_Products" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-rtl.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/Style.css" rel="stylesheet" />
+</head>
+<body>
+    <header>
+        <div class="row">
+            <div class="top-nav">
+                <div class="container">
+                    <div class="col-md-6 col-sm-7 col-xs-7 right-nav">
+                        <div class="clientarea">
+                            <ul>
+                                @Html.Partial("_LoggedInUser")
+                                <li><a href="/ShopCart"><i class="fa fa-shopping-bag"></i> سبد خرید <span class="badge" id="CountShopCart"></span></a></li>
+                            </ul>
+                        </div>
+                        <!-- End Clientarea and Basket -->
+                    </div>
+                    <div class="col-md-6 col-sm-5 col-xs-5 left-nav">
+                        <!-- Social -->
+                        <div class="socials">
+                            <ul>
+                                <li><a href="https://www.instagram.com/omid_alp7/?r=nametag" target="_blank" class="social-icon" title="اینستاگرام" data-balloon=" اینستاگرام " data-balloon-pos="down"><i class="fa fa-instagram"></i></a></li>
+                                <li><a href="https://t.me/Omid_Alp" target="_blank" class="social-icon" title="تلگرام" data-balloon=" تلگرام " data-balloon-pos="down"><i class="fa fa-paper-plane"></i></a></li>
+                            </ul>
+                        </div>
+                        <!-- End Social -->
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <nav class="navbar navbar-default" id="navbar">
+                <div class="container">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <li><a href="/" class="brand">فروشگاه دیجیتال</a></li>
+                            <li><a href="/">صفحه اصلی <span class="sr-only">(current)</span></a></li>
+                            @Html.Action("Menu", "Home")
+                            <li><a href="/Archive">آرشیو محصولات <span class="sr-only">(current)</span></a></li>
+                        </ul>
+                        <form class="navbar-form navbar-left" id="Search" action="/Search">
+                            <div id="aMenu">
+                                <ul class="nav navbar-nav">
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="glyphicon glyphicon-search"></i></a>
+                                        <ul class="dropdown-menu" style=" width: 250px; padding: 5px">
+                                            <li>
+                                                <div class="input-group">
+                                                    <input type="text" name="q" class="form-control" style="width:100% !important" placeholder="جستجو">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                                                    </span>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </form>
+
+                    </div><!-- /.navbar-collapse -->
+                </div><!-- /.container-fluid -->
+            </nav>
+        </div>
+        @RenderSection("Slider", false)
+    </header>
+    <div class="container">
+        <main class="main">
+            <div class="row">
+                <aside class="col-md-3 col-sm-4 right-side-content">
+                    @RenderSection("Filter", false)
+
+                    <div id="ShowCart">
+                        @Html.Action("ShowCart", "ShopCart")
+                    </div>
+                    <div id="compare">
+                        @Html.Action("CompareItem", "CompareList")
+                    </div>
+                    @Html.Action("ShowGroups", "Product")
+                </aside>
+                <div class="col-md-9 col-sm-8">
+                    @RenderBody()
+                </div>
+            </div>
+        </main>
+    </div>
+    <footer class="footer">
+        
+    </footer>
+</body>
+</html>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/bootstrap-rtl.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+<script src="~/Scripts/CustomScript.js"></script>

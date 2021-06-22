@@ -1,0 +1,32 @@
+﻿
+@if (User.Identity.IsAuthenticated)
+{
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@User.Identity.Name خوش آمدید <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+            <li>
+                <a href="/ChangePassword" class="btn"> تغییر کلمه عبور </a>
+            </li>
+            @if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
+            {
+                <li>
+                    <a href="/Admin/Home" class="btn"> پنل مدیریت </a>
+                </li>
+            }
+            @if (User.Identity.IsAuthenticated && User.IsInRole("Shop"))
+            {
+                <li>
+                    <a href="/Admin/Products/Create" class="btn"> افزودن محصول </a>
+                </li>
+            }
+            <li>
+                <a href="/LogOff" class="btn"> خروج</a>
+            </li>
+        </ul>
+        </li>
+}
+else
+{
+    <li><a href="/Register" class="btn"> عضویت <i class="fa fa-user-plus"></i></a></li>
+    <li><a href="/Login" class="btn">ورود <i class="fa fa-user"></i></a></li>
+}

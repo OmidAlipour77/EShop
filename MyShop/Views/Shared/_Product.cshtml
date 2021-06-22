@@ -1,0 +1,20 @@
+﻿@model DataLayer.Products
+
+<div class="col-sm-6 col-md-4">
+    <div class="thumbnail" id="_product">
+        <a href="/Products/@Model.ProductID"><img src="~/Images/Product/thumb/@Model.ImageName" alt=""></a>
+        <div class="caption">
+            <h5 class="text-center"><a id="titleProduct" href="/Products/@Model.ProductID">@Model.Title</a></h5>
+            <hr />
+            <h5 class="text-center">افزودن به لیست مقایسه <input type="checkbox" onchange="AddCompare(@Model.ProductID)"/></h5>
+            <hr />
+            <p>
+                <label>@Model.Price.ToString("#,0") تومان</label>
+                <a onclick="AddShopCart(@Model.ProductID)" id="shopping-basket-Item" class="btn btn-success btn-sm" role="button"><i class="fa fa-shopping-basket"></i></a>
+            </p>
+
+        </div>
+    </div>
+</div>
+
+

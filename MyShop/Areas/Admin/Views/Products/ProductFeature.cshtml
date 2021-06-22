@@ -1,0 +1,78 @@
+﻿@model DataLayer.ProductFeature
+
+@{
+    ViewBag.Title = "ویژگی های محصول";
+}
+
+<h2>وِیژگی های محصول</h2>
+
+@using (Html.BeginForm())
+{
+
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.ProductID)
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(model => model.FeatureID, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("FeatureID", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.FeatureID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Value, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Value, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Value, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="ثبت" class="btn btn-primary" />
+                    <a href="/Admin/Products" class="btn btn-primary">بازگشت</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8">
+        @{
+            List<DataLayer.ProductFeature> list = ViewBag.Feature;
+
+            <table class="table table-bordered">
+                <tr>
+                    <th>عنوان ویژگی</th>
+                    <th>مقدار</th>
+                    <th></th>
+                </tr>
+                @foreach (var item in list)
+                {
+                    <tr id="ProductFeature_@(item.PF_ID)">
+                        <td>@item.Feature.FeatureTitle</td>
+                        <td>@item.Value</td>
+                        <td>
+                            <a onclick="DeleteProductFeature(@item.PF_ID)" class="btn btn-danger btx-xs"><i class="glyphicon glyphicon-trash"></i></a>
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        }
+    </div>
+
+
+}
+<script>
+    function DeleteProductFeature(id) {
+        if (confirm("آیا از حذف این ویژگی مطمئن هستید؟")) {
+            $.get("/Admin/Products/DeletePF/" + id, function () {
+                $("#ProductFeature_" + id).hide('slow');
+            })
+        };
+    }
+</script>
+

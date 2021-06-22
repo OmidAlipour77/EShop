@@ -1,0 +1,11 @@
+C:\Users\Omid\Documents\1_MyShop\MyShop\ViewModels\bin\Debug\ViewModels.dll.config
+C:\Users\Omid\Documents\1_MyShop\MyShop\ViewModels\bin\Debug\ViewModels.dll
+C:\Users\Omid\Documents\1_MyShop\MyShop\ViewModels\bin\Debug\ViewModels.pdb
+C:\Users\Omid\Documents\1_MyShop\MyShop\ViewModels\bin\Debug\EntityFramework.dll
+C:\Users\Omid\Documents\1_MyShop\MyShop\ViewModels\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Omid\Documents\1_MyShop\MyShop\ViewModels\bin\Debug\EntityFramework.xml
+C:\Users\Omid\Documents\1_MyShop\MyShop\ViewModels\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Omid\Documents\1_MyShop\MyShop\ViewModels\obj\Debug\ViewModels.csproj.CoreCompileInputs.cache
+C:\Users\Omid\Documents\1_MyShop\MyShop\ViewModels\obj\Debug\ViewModels.csproj.CopyComplete
+C:\Users\Omid\Documents\1_MyShop\MyShop\ViewModels\obj\Debug\ViewModels.dll
+C:\Users\Omid\Documents\1_MyShop\MyShop\ViewModels\obj\Debug\ViewModels.pdb

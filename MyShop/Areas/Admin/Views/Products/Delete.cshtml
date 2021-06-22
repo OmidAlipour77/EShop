@@ -1,0 +1,53 @@
+﻿@model DataLayer.Products
+    @using Utilities
+
+@{
+    ViewBag.Title = "حذف محصول";
+}
+
+<h3>آیا از حذف این محصول مطمئن هستید؟</h3>
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ImageName)
+        </dt>
+
+        <dd>
+            <img src="~/Images/Product/thumb/@Model.ImageName" alt="@Model.Title" />
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Price) 
+        </dt>
+
+        <dd>
+            @Model.Price.ToString("#,0") تومان
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreateDate)
+        </dt>
+
+        <dd>
+            @Model.CreateDate.ToShamsi()
+        </dd>
+
+
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="حذف" class="btn btn-danger" /> 
+            <a href="/Admin/Products" class="btn btn-info">بازگشت</a>
+        </div>
+    }
+</div>

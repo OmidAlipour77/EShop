@@ -1,0 +1,70 @@
+﻿@model IEnumerable<DataLayer.Products>
+@using Utilities
+@{
+    ViewBag.Title = "محصولات";
+}
+
+<h2>محصولات</h2>
+
+<p>
+    <a href="@Url.Action("Create")" class="btn btn-primary">افزودن محصول جدید</a>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ImageName)
+        </th>
+        <th>
+            گروه های محصول
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreateDate)
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <img src="~/Images/Product/thumb/@item.ImageName" alt="Product" />
+            </td>
+            <td>
+                @if (item.ProductSelectGroup.Any())
+                {
+                <ol>
+                    @foreach (var group in item.ProductSelectGroup)
+                    {
+
+                        <li>@group.ProductGroups.GroupTitle</li>
+                    }
+                </ol>
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @item.Price.ToString("#,0")
+            </td>
+            <td>
+                @item.CreateDate.ToShamsi()
+            </td>
+            <td>
+                <a href="@Url.Action("Gallery", new { id = item.ProductID })" class="btn btn-info btn-xs">گالری تصاویر</a>
+                <a href="@Url.Action("ProductFeature", new { id = item.ProductID })" class="btn btn-primary btn-xs">ویژگی محصولات</a>
+                <a href="@Url.Action("Edit", new { id = item.ProductID })" class="btn btn-warning btn-xs">ویرایش محصول</a>
+                <a href="@Url.Action("Delete", new { id = item.ProductID })" class="btn btn-danger btn-xs">حذف محصول</a>
+
+            </td>
+        </tr>
+    }
+
+</table>

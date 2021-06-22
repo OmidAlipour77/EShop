@@ -1,0 +1,25 @@
+﻿@model IEnumerable<DataLayer.CompareItem>
+
+@if(Model.Any())
+{
+    <div class="panel panel-warning">
+        <!-- Default panel contents -->
+        <div class="panel-heading">لیست مقایسه</div>
+        <div class="panel-body">
+            <div id="panel2">
+                <ul>
+                    @foreach (var item in Model)
+                    {
+                        <li>
+                            <i onclick="DeleteCompare(@item.ProductID)" class="fa fa-close text-danger"></i> <a href="/Products/@item.ProductID"> @item.Title</a>
+                        </li>
+                    }
+                </ul>
+            </div>
+
+            <a href="/Compare" class="btn btn-info btn-block">مشاهده لیست مقایسه</a>
+        </div>
+
+
+    </div>
+}
